@@ -1,20 +1,43 @@
-// chess.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
+using namespace std;
+class defboard{
+public:
+    string board[8][8] = { "--" };
+    void getchess() {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                cin >> board[i][j];
+            }
+        }
+    }
+    void printchess() {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                cout << board[i][j] << " ";
+            }
+            cout << '\n';
+        }
+        cout << '\n';
+    }
+};
 
-int main()
-{
-    std::cout << "Hello World! Im sina and this is myfirst github change";
+class keys {
+    public:
+
+};
+int main() {
+    defboard board;
+    cout << " -- starting -- \n";
+    int command = 1;
+    while (command != 0) {
+        cout << "1: print board \n2: make new board\n0: exit\n";
+        cin >> command;
+        if (command == 1) {
+            board.printchess();
+        }
+        if (command == 2) {
+            board.getchess();
+        }
+    };
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
