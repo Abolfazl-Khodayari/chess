@@ -24,7 +24,7 @@ public:
 
 class keys {
     public:
-
+        sdwdacx m,/
 };
 int main() {
     defboard board;
@@ -39,5 +39,5 @@ int main() {
         if (command == 2) {
             board.getchess();
         }
-    };
+    }
 }
