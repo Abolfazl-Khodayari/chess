@@ -3,28 +3,28 @@
 #include <stdlib.h>
 using namespace std;
 class defboard{
-public:
-    string board[8][8];
-    void printchess() {
-        for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j < 8; ++j) {
-                cout << board[i][j] << " ";
+    public:
+        keys board[8][8];
+        void printchess() {
+            for (int i = 0; i < 8; ++i) {
+                for (int j = 0; j < 8; ++j) {
+                    cout << board[i][j] << " ";
+                }
+                cout << '\n';
             }
             cout << '\n';
         }
-        cout << '\n';
-    }
-    int cellckeck(int i, int j) {
-        if (board[i][j] == "--") {
-            return 0;
+        int cellckeck(int i, int j) {
+            if (board[i][j] == "--") { 
+                return 0;
+            }
+            if (board[i][j][1] == 'W') {
+                return 1;
+            }
+            if (board[i][j][1] == 'B') {
+                return 2;
+            }
         }
-        if (board[i][j][1] == 'W') {
-            return 1;
-        }
-        if (board[i][j][1] == 'B') {
-            return 2;
-        }
-    }
 };
 
 class keys {
@@ -43,38 +43,28 @@ class keys {
 class King : public keys {
     public:
         int checkmove(int i, int j) {
-            if (board.cellckeck(i, j) == team) {
-                return 0;
-            }
-            if (abs(x - i) = 1 || abs(y - j) = 1) {
+            if (abs(x - i) == 1 || abs(y - j) == 1) {
                 return 1;
             }
-            retutn 0;
+            return 0;
         }
 };
 class Queen : public keys {
 public:
     int checkmove(int i, int j) {
-        if (board.cellckeck(i, j) == team) {
-            return 0;
-        }
+
     }
 };
 class Bishop : public keys {
 public:
     int checkmove(int i, int j) {
-        if (board.cellckeck(i, j) == team) {
-            return 0;
-        }
+
     }
 };
 class Knight : public keys {
 public:
     int checkmove(int i, int j) {
-        if (board.cellckeck(i, j) == team) {
-            return 0;
-        }
-        if ((abs(i * j) == 2)  {
+        if ((abs(i * j) == 2)) {
             return 1;
         }
     }
@@ -82,16 +72,14 @@ public:
 class Rook : public keys {
 public:
     int checkmove(int i, int j) {
-        if (board.cellckeck(i, j) == team) {
-            return 0;
-        }
+
 
     }
 };
 class Pawn : public keys {
 public:
     int checkmove(int i, int j) {
-        if (board.cellckeck(i, j) == team) {
+        /*if (board.cellckeck(i, j) == team) {
             return 0;
         }
         if (abs(x - i) == 1 && (y - j) == 1) {
@@ -101,10 +89,13 @@ public:
         }
         if (abs(x - i) == 0 && (y - j) == 1)
             return 0;
-
+        */
     }
 };
-void getchess() {
+
+int main() {
+    cout << " -- starting -- \n";
+    defboard board;
     string temp1;
     int bbishab = 0, bknight = 0, brook = 0, bpawn = 0;
     int wbishab = 0, wknight = 0, wrook = 0, wpawn = 0;
@@ -217,78 +208,91 @@ void getchess() {
                     if (wpawn == 0) {
                         Pawn Wpawn1(1);
                         board.board[i][j] = Wpawn1;
+                        wpawn++;
                     }
                     else if (wpawn == 1) {
                         Pawn Wpawn2(1);
                         board.board[i][j] = Wpawn2;
+                        wpawn++;
                     }
                     else if (wpawn == 2) {
                         Pawn Wpawn3(1);
                         board.board[i][j] = Wpawn3;
+                        wpawn++;
                     }
                     else if (wpawn == 3) {
                         Pawn Wpawn4(1);
                         board.board[i][j] = Wpawn4;
+                        wpawn++;
                     }
                     else if (wpawn == 4) {
                         Pawn Wpawn5(1);
                         board.board[i][j] = Wpawn5;
+                        wpawn++;
                     }
                     else if (wpawn == 5) {
                         Pawn Wpawn6(1);
                         board.board[i][j] = Wpawn6;
+                        wpawn++;
                     }
                     else if (wpawn == 6) {
                         Pawn Wpawn7(1);
                         board.board[i][j] = Wpawn7;
+                        wpawn++;
                     }
                     else if (wpawn == 7) {
                         Pawn Wpawn8(1);
                         board.board[i][j] = Wpawn8;
+                        wpawn++;
                     }
                 }
                 else {
                     if (bpawn == 0) {
                         Pawn Bpawn1(1);
                         board.board[i][j] = Bpawn1;
+                        bpawn++;
                     }
                     else if (bpawn == 1) {
                         Pawn Bpawn2(1);
                         board.board[i][j] = Bpawn2;
+                        bpawn++;
                     }
                     else if (bpawn == 2) {
                         Pawn Bpawn3(1);
                         board.board[i][j] = Bpawn3;
+                        bpawn++;
                     }
                     else if (bpawn == 3) {
                         Pawn Bpawn4(1);
                         board.board[i][j] = Bpawn4;
+                        bpawn++;
                     }
                     else if (bpawn == 4) {
                         Pawn Bpawn5(1);
                         board.board[i][j] = Bpawn5;
+                        bpawn++;
                     }
                     else if (bpawn == 5) {
                         Pawn Bpawn6(1);
                         board.board[i][j] = Bpawn6;
+                        bpawn++;
                     }
                     else if (bpawn == 6) {
                         Pawn Bpawn7(1);
                         board.board[i][j] = Bpawn7;
+                        bpawn++;
                     }
                     else if (bpawn == 7) {
                         Pawn Bpawn8(1);
                         board.board[i][j] = Bpawn8;
+                        bpawn++;
                     }
                 }
-            
+
             }
         }
     }
-}
-int main() {
-    cout << " -- starting -- \n";
-    defboard board;
+
 
     int command = 1;
     while (command != 0) {
@@ -298,7 +302,7 @@ int main() {
             board.printchess();
         }
         if (command == 2) {
-            board.getchess();
+            getchess();
         }
     }
 }
