@@ -5,6 +5,7 @@ using namespace std;
 class defboard{
     public:
         keys board[8][8];
+        /*
         void printchess() {
             for (int i = 0; i < 8; ++i) {
                 for (int j = 0; j < 8; ++j) {
@@ -14,14 +15,15 @@ class defboard{
             }
             cout << '\n';
         }
+        */
         int cellckeck(int i, int j) {
-            if (board[i][j] == "--") { 
+            if (board[i][j].keytype == 0) { 
                 return 0;
             }
-            if (board[i][j][1] == 'W') {
+            if (board[i][j].team == 'W') {
                 return 1;
             }
-            if (board[i][j][1] == 'B') {
+            if (board[i][j].team == 'B') {
                 return 2;
             }
         }
@@ -32,9 +34,7 @@ class keys {
         int x = 9;
         int y = 9;
         int team;
-        keys (int t) {
-            team = t;
-        }
+        int keytype;
         void move(int i, int j) {
             x = i;
             y = j;
@@ -42,6 +42,9 @@ class keys {
 };
 class King : public keys {
     public:
+        King(int t) {
+            team = t;
+        }
         int checkmove(int i, int j) {
             if (abs(x - i) == 1 || abs(y - j) == 1) {
                 return 1;
@@ -51,18 +54,27 @@ class King : public keys {
 };
 class Queen : public keys {
 public:
+    Queen(int t) {
+        team = t;
+    }
     int checkmove(int i, int j) {
 
     }
 };
 class Bishop : public keys {
 public:
+    Bishop(int t) {
+        team = t;
+    }
     int checkmove(int i, int j) {
 
     }
 };
 class Knight : public keys {
 public:
+    Knight(int t) {
+        team = t;
+    }
     int checkmove(int i, int j) {
         if ((abs(i * j) == 2)) {
             return 1;
@@ -71,6 +83,9 @@ public:
 };
 class Rook : public keys {
 public:
+    Rook(int t) {
+        team = t;
+    }
     int checkmove(int i, int j) {
 
 
@@ -78,6 +93,9 @@ public:
 };
 class Pawn : public keys {
 public:
+    Pawn(int t) {
+        team = t;
+    }
     int checkmove(int i, int j) {
         /*if (board.cellckeck(i, j) == team) {
             return 0;
@@ -103,7 +121,7 @@ int main() {
         for (int j = 0; j < 8; ++j) {
             cin >> temp1;
             if (temp1 == "--") {
-                board.board[i][j] = temp1;
+                board.board[i][j].keytype = 0;
             }
             else if (temp1[0] == 'K') {
                 if (temp1[1] == 'W') {
@@ -298,11 +316,5 @@ int main() {
     while (command != 0) {
         cout << "1: print board \n2: make new board\n0: exit\n";
         cin >> command;
-        if (command == 1) {
-            board.printchess();
-        }
-        if (command == 2) {
-            getchess();
-        }
     }
 }
