@@ -1,15 +1,17 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <SFML/Graphics.hpp>
+using namespace sf;
 using namespace std;
-
-
 
 class keys {
 public:
     int x = 9;
     int y = 9;
     int team;
+    Texture texturekey;
+    Sprite spritekey;
     enum keytypes { king, queen, bishop, knight, rook, pawn, empt };
     keytypes keytype;
     string keyname;
@@ -29,10 +31,15 @@ public:
         keytype = king;
         if (team == 1) {
             keyname = "KW";
+            texturekey.loadFromFile("texture/set/wking.png", IntRect(0, 0, 75, 75));
         }
         else {
+            texturekey.loadFromFile("texture/set/bking.png", IntRect(0, 0, 75, 75));
             keyname = "KB";
         }
+        spritekey.setTexture(texturekey);
+        spritekey.setPosition(Vector2f((x * 75), (y * 75)));
+
     }
     int checkmove(int i, int j) {
         if (abs(x - i) == 1 || abs(y - j) == 1) {
@@ -48,10 +55,14 @@ public:
         keytype = queen;
         if (team == 1) {
             keyname = "QW";
+            texturekey.loadFromFile("texture/set/wqueen.png", IntRect(0, 0, 75, 75));
         }
         else {
             keyname = "QB";
+            texturekey.loadFromFile("texture/set/bqueen.png", IntRect(0, 0, 75, 75));
         }
+        spritekey.setTexture(texturekey);
+        spritekey.setPosition(Vector2f((x * 75), (y * 75)));
     }
     // int checkmove(int i, int j) {
 
@@ -64,10 +75,14 @@ public:
         keytype = bishop;
         if (team == 1) {
             keyname = "BW";
+            texturekey.loadFromFile("texture/set/wbishop.png", IntRect(0, 0, 75, 75));
         }
         else {
             keyname = "BB";
+            texturekey.loadFromFile("texture/set/bbishop.png", IntRect(0, 0, 75, 75));
         }
+        spritekey.setTexture(texturekey);
+        spritekey.setPosition(Vector2f((x * 75), (y * 75)));
     }
     // int checkmove(int i, int j) {
 
@@ -80,10 +95,14 @@ public:
         keytype = knight;
         if (team == 1) {
             keyname = "NW";
+            texturekey.loadFromFile("texture/set/wknight.png", IntRect(0, 0, 75, 75));
         }
         else {
             keyname = "NB";
+            texturekey.loadFromFile("texture/set/bknight.png", IntRect(0, 0, 75, 75));
         }
+        spritekey.setTexture(texturekey);
+        spritekey.setPosition(Vector2f((x * 75), (y * 75)));
     }
     int checkmove(int i, int j) {
         if ((abs(i * j) == 2)) {
@@ -98,10 +117,14 @@ public:
         keytype = rook;
         if (team == 1) {
             keyname = "RW";
+            texturekey.loadFromFile("texture/set/wrook.png", IntRect(0, 0, 75, 75));
         }
         else {
             keyname = "RB";
+            texturekey.loadFromFile("texture/set/brook.png", IntRect(0, 0, 75, 75));
         }
+        spritekey.setTexture(texturekey);
+        spritekey.setPosition(Vector2f((x * 75), (y * 75)));
     }
     // int checkmove(int i, int j) {
 
@@ -115,9 +138,11 @@ public:
         keytype = pawn;
         if (team == 1) {
             keyname = "PW";
+            texturekey.loadFromFile("texture/set/wpawn.png", IntRect(0, 0, 75, 75));
         }
         else {
             keyname = "PB";
+            texturekey.loadFromFile("texture/set/bpawn.png", IntRect(0, 0, 75, 75));
         }
     }
     /*int checkmove(int i, int j) {
@@ -131,7 +156,6 @@ public:
         }
         if (abs(x - i) == 0 && (y - j) == 1)
             return 0;
-
     }*/
 };
 class Empty : public keys {
@@ -186,13 +210,47 @@ public:
     // }
 
 };
+class GraphicCore {
+public:
+    void runGraphic(point** myboard) {
+        RenderWindow window(VideoMode(600, 600), "Hi Sina", Style::Titlebar | Style::Close);
+        //CircleShape shape(50);
+        window.setFramerateLimit(60);
+        Texture textureboard;
+        textureboard.loadFromFile("texture/set/boardblue.jpg", IntRect(0, 0, 600, 600));
+        Sprite spriteboard;
+        spriteboard.setTexture(textureboard);
+        //RectangleShape rectangle(Vector2f(120, 50));
+        //RectangleShape shape(50);
+        Texture temp4;
+        Sprite temp4sprite;
+        //cout << myboard[0][0].mohre->keyname << endl;
+        while (window.isOpen()) {
+            Event event;
+            while (window.pollEvent(event))
+                if (event.type == Event::Closed)
+                    window.close();
+            window.clear();
+            window.draw(spriteboard);
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (myboard[i][j].mohre->keyname != "--") {
+                        temp4 = myboard[i][j].mohre->texturekey;
+                        temp4sprite.setTexture(temp4);
+                        temp4sprite.setPosition(Vector2f((j * 75), (i * 75)));
+                        window.draw(temp4sprite);
+                    }
+                }
+            }
+            window.display();
+        }
+    }
 
+};
 int main() {
     cout << " -- starting -- \n";
-
     defboard mainboard;
     string temp1;
-
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             cin >> temp1;
@@ -253,15 +311,19 @@ int main() {
         }
     }
     cout << '\n';
+    GraphicCore maingraphics;
+    maingraphics.runGraphic(mainboard.board);
     int temp2[4];
+    cout << "Enter the key origin and destination. for example: i j x y" << endl;
     while (1) {
         for (int i = 0; i < 4; i++) {
             cin >> temp2[i];
         }
-        mainboard.move(temp2[0], temp2[1], temp2[2], temp2[3]);
+        cout << "Enter the key origin and destination. for example: i j x y" << endl;
+        mainboard.move(temp2[0] - 1, temp2[1] - 1, temp2[2] - 1, temp2[3] - 1);
         mainboard.printchess();
+        maingraphics.runGraphic(mainboard.board);
     }
-
     cout << "end of program" << endl;
     return 0;
 }
